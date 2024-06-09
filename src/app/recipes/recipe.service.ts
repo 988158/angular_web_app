@@ -7,16 +7,17 @@ import { Subject } from "rxjs";
 @Injectable()
 export class RecipeService{
     recipesChanged = new Subject<Recipe[]>();
-
-    private recipes: Recipe[] = [
-        new Recipe('A Test Recipe', 
-        'This is simply a test', 
-        'https://assets.bonappetit.com/photos/64349ba03fd52da4745a35f4/1:1/w_3563,h_3563,c_limit/04102023-ratatouille-lede.jpg',
-        [
-            new Ingredient('Meat', 1),
-            new Ingredient('French Fries', 20)
-        ])
-      ];
+    private recipes: Recipe[] = [];
+    
+    // private recipes: Recipe[] = [
+    //     new Recipe('A Test Recipe', 
+    //     'This is simply a test', 
+    //     'https://assets.bonappetit.com/photos/64349ba03fd52da4745a35f4/1:1/w_3563,h_3563,c_limit/04102023-ratatouille-lede.jpg',
+    //     [
+    //         new Ingredient('Meat', 1),
+    //         new Ingredient('French Fries', 20)
+    //     ])
+    //   ];
 
 
     constructor(private slService: ShoppingListService) {}
@@ -46,4 +47,12 @@ export class RecipeService{
         this.recipes.splice(index, 1);
         this.recipesChanged.next(this.recipes.slice());    
     }
+
+
+    setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
+
+
 }
